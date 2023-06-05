@@ -102,7 +102,7 @@ choice(T val)
 *@brief Template function
 */
 template<typename T>
-typename std::enable_if<std::is_same<T, std::vector<int>>::value, void>::type
+typename std::enable_if<(std::is_same<T, std::vector<int>>::value) || (std::is_same<T, std::list<int>>::value), void>::type
 /**
 *@brief outputs to the console in the format std::vector<int>
 *@param val when the types match std::vector<int>>
@@ -116,23 +116,23 @@ choice(T val)
 	std::cout << std::endl;
 }
 
-/**
-*@brief Template function
-*/
-template<typename T>
-typename std::enable_if<std::is_same<T, std::list<int>>::value, void>::type
-/**
-*@brief outputs to the console in the format std::list<int>
-*@param val when the types match std::list<int>>
-*/
-choice(T val)
-{
-	for (bool isFirst(true); int& i:val)
-	{
-		std::cout << (isFirst ? isFirst = false, "" : ".") << i;
-	}
-	std::cout << std::endl;
-}
+///**
+//*@brief Template function
+//*/
+//template<typename T>
+//typename std::enable_if<std::is_same<T, std::list<int>>::value, void>::type
+///**
+//*@brief outputs to the console in the format std::list<int>
+//*@param val when the types match std::list<int>>
+//*/
+//choice(T val)
+//{
+//	for (bool isFirst(true); int& i:val)
+//	{
+//		std::cout << (isFirst ? isFirst = false, "" : ".") << i;
+//	}
+//	std::cout << std::endl;
+//}
 
 /**
 *@brief Template function
