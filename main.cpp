@@ -21,7 +21,7 @@ typename std::enable_if<std::is_same<T, uint8_t>::value, void>::type
 */
 choice(T val)
 {
-	std::cout << +val << std::endl;
+	std::cout << unsigned(val) << std::endl;
 }
 
 /**
