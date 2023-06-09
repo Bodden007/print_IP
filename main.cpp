@@ -10,15 +10,6 @@
 #include <list>
 #include <tuple>
 
-///**
-//*@brief Template function
-//*/
-//template<typename T>
-//typename std::enable_if<std::is_same<T, int8_t>::value, void>::type
-//choice(T val)
-//{
-//	std::cout << unsigned(val) << std::endl;
-//}
 /**
 *@brief Template function
 */
