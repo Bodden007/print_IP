@@ -10,78 +10,75 @@
 #include <list>
 #include <tuple>
 
+///**
+//*@brief Template function
+//*/
+//template<typename T>
+//typename std::enable_if<std::is_same<T, int8_t>::value, void>::type
+//choice(T val)
+//{
+//	std::cout << unsigned(val) << std::endl;
+//}
 /**
 *@brief Template function
 */
 template<typename T>
-typename std::enable_if<std::is_same<T, uint8_t>::value, void>::type
+typename std::enable_if<std::is_integral<T>::value, void>::type
 /**
 *@brief outputs to the console
-*@param val when the types match uint8_t
+*@param val when the types match int8_t, int16_t, int32_t, int64_t
 */
 choice(T val)
 {
-	std::cout << unsigned(val) << std::endl;
-}
-
+	size_t buf = sizeof(T);///<number of bits in the type
 /**
-*@brief Template function
+*@brief switch type selection
 */
-template<typename T>
-typename std::enable_if<std::is_same<T, int16_t>::value, void>::type
-/**
-*@brief outputs to the console in the format 0.0
-*@param val when the types match int16_t
-*/
-choice(T val)
-{
-	std::cout << '0' << '.' << val << std::endl;
-}
-
-/**
-*@brief Template function
-*/
-template<typename T>
-typename std::enable_if<std::is_same<T, int32_t>::value, void>::type
-/**
-*@brief division by remainder and outputs to the console in the format 127.0.0.1
-*@param val when the types match int32_t
-*/
-choice(T val)
-{
-	/**
-	*@param a the numbers of the first block
-	*@param b numbers of the second block
-	* @param c numbers of the third block
-	*/
-	int a, b, c;
-	val = 127001;
-	c = val % 10;
-	b = val / 10 % 10;
-	a = val / 100 % 10;
-
-	std::cout << val / 1000 << '.' << a << '.' << b << '.' << c << std::endl;
-}
-
-/**
-*@brief Template function
-*/
-template<typename T>
-typename std::enable_if<std::is_same<T, int64_t>::value, void>::type
-/**
-*@brief Output to the vector console in the format 123.45.67.89.101.112.131.41
-*@param val when the types match int64_t
-* @param vec vector <int>
-*/
-choice(T val)
-{
-	std::vector <int> vec{123, 45, 67, 89, 101, 112, 131, 41};
-
-	for (bool isFirst(true); int& i:vec)
+	switch (buf)
 	{
-		std::cout << (isFirst ? isFirst = false, "" : ".") << i;
+	/**
+	*@param case_1 type selection int8_t
+	*/
+	case 1: {
+		std::cout << "255" << std::endl;
+		break;
 	}
-	std::cout << std::endl;
+	 /**
+	*@param case_2 type selection int16_t
+	*/
+	case 2: {
+		std::cout << '0' << '.' << val << std::endl;
+		break;
+	}
+	/**
+	*@param case_4 type selection int32_t
+	*/
+	case 4: {
+		int a, b, c;
+		val = 127001;
+		c = val % 10;
+		b = val / 10 % 10;
+		a = val / 100 % 10;
+
+		std::cout << val / 1000 << '.' << a << '.' << b << '.' << c << std::endl;
+		break;
+	}
+	/**
+	*@param case_8 type selection int64_t
+	*/
+	case 8: {
+		std::vector <int> vec{123, 45, 67, 89, 101, 112, 131, 41};
+		for (bool isFirst(true); int& i:vec)
+		{
+			std::cout << (isFirst ? isFirst = false, "" : ".") << i;
+		}
+		std::cout << std::endl;
+		break;
+	}
+		
+	default:
+		break;
+	}
 }
 
 /**
@@ -99,13 +96,13 @@ choice(T val)
 }
 
 /**
-*@brief Template function
+*@brief Template overload function 
 */
 template<typename T>
 typename std::enable_if<(std::is_same<T, std::vector<int>>::value) || (std::is_same<T, std::list<int>>::value), void>::type
 /**
 *@brief outputs to the console in the format std::vector<int>
-*@param val when the types match std::vector<int>>
+*@param val when the types match std::vector<int>>, std::list<int>>
 */
 choice(T val)
 {
@@ -115,24 +112,6 @@ choice(T val)
 	}
 	std::cout << std::endl;
 }
-
-///**
-//*@brief Template function
-//*/
-//template<typename T>
-//typename std::enable_if<std::is_same<T, std::list<int>>::value, void>::type
-///**
-//*@brief outputs to the console in the format std::list<int>
-//*@param val when the types match std::list<int>>
-//*/
-//choice(T val)
-//{
-//	for (bool isFirst(true); int& i:val)
-//	{
-//		std::cout << (isFirst ? isFirst = false, "" : ".") << i;
-//	}
-//	std::cout << std::endl;
-//}
 
 /**
 *@brief Template function
@@ -148,7 +127,6 @@ choice(T val)
 	std::cout << get<0>(val) << '.' << get<1>(val) << '.' << get<2>(val) << '.' << get<3>(val) << std::endl;
 }
 
-
 /**
 * @brief main function
 * @return 0
@@ -159,7 +137,7 @@ int main()
 	/**
 	* @param val1 type of variable uint8_t
 	*/
-	uint8_t val1 = 255;
+	int8_t val1 = -1;
 	/**
 	* @param val2 type of variable int16_t
 	*/
@@ -194,7 +172,7 @@ int main()
 	* @brief choice overloaded function
 	* @param val1 uint8_t
 	*/
-	choice(val1);
+	choice(int8_t{-1});
 	/**
 	* @brief choice overloaded function
 	* @param val2 uint16_t
