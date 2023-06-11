@@ -19,7 +19,7 @@ typename std::enable_if<std::is_integral<T>::value, void>::type
 *@brief outputs to the console
 *@param val when the types match int8_t, int16_t, int32_t, int64_t
 */
-choice(T val)
+print_ip(T val)
 {
 	size_t buf = sizeof(T);///<number of bits in the type
 /**
@@ -31,7 +31,7 @@ choice(T val)
 	*@param case_1 type selection int8_t
 	*/
 	case 1: {
-		std::cout << "255" << std::endl;
+		std::cout << unsigned(val) << std::endl;
 		break;
 	}
 	 /**
@@ -81,7 +81,7 @@ typename std::enable_if<std::is_same<T, std::string>::value, void>::type
 *@brief outputs to the console in the format std::string
 *@param val when the types match std::string
 */
-choice(T val)
+print_ip(T val)
 {
 	std::cout << val << std::endl;
 }
@@ -95,7 +95,7 @@ typename std::enable_if<(std::is_same<T, std::vector<int>>::value) || (std::is_s
 *@brief outputs to the console in the format std::vector<int>
 *@param val when the types match std::vector<int>>, std::list<int>>
 */
-choice(T val)
+print_ip(T val)
 {
 	for (bool isFirst(true); int& i:val)
 	{
@@ -113,7 +113,7 @@ typename std::enable_if<std::is_same<T, std::tuple<int, int, int, int>>::value, 
 *@brief outputs to the console in the format std::tuple<int,int,int,int>
 *@param val when the types match std::tuple
 */
-choice(T val)
+print_ip(T val)
 {
 	std::cout << get<0>(val) << '.' << get<1>(val) << '.' << get<2>(val) << '.' << get<3>(val) << std::endl;
 }
@@ -128,7 +128,7 @@ int main()
 	/**
 	* @param val1 type of variable uint8_t
 	*/
-	int8_t val1 = -1;
+	uint8_t val1 = -1;
 	/**
 	* @param val2 type of variable int16_t
 	*/
@@ -160,45 +160,45 @@ int main()
 	val8 = std::make_tuple(123, 456, 789, 0);
 
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val1 uint8_t
 	*/
-	choice(int8_t{-1});
+	print_ip(val1);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val2 uint16_t
 	*/
-	choice(val2);
+	print_ip(val2);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val3 uint32_t
 	*/
-	choice(val3);
+	print_ip(val3);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val4 uint64_t
 	*/
-	choice(val4);
+	print_ip(val4);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val5 std::string
 	*/
-	choice(val5);
+	print_ip(val5);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val6 std::vector <int>
 	*/
-	choice(val6);
+	print_ip(val6);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val7 std::list <int>
 	*/
-	choice(val7);
+	print_ip(val7);
 	/**
-	* @brief choice overloaded function
+	* @brief print_ip overloaded function
 	* @param val8 std::make_tuple
 	*/
-	choice(val8);
+	print_ip(val8);
 
 	return 0;
 }
